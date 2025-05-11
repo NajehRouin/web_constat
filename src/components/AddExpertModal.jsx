@@ -1,0 +1,131 @@
+// components/AddExpertModal.jsx
+import { useState } from "react";
+import { Dialog, DialogHeader, DialogBody, DialogFooter, Input, Button } from "@material-tailwind/react";
+
+
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import apiClient from "@/api/client";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+
+export default function AddExpertModal({ open, handleClose, onExpertAdded }) {
+    const [form, setForm] = useState({ name: "", email: "", password: "" });
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const validate = () => {
+        const newErrors = {};
+        if (!form.name) newErrors.name = "Le nom est requis.";
+        if (!form.email) newErrors.email = "L'email est requis.";
+        if (!form.password) newErrors.password = "Le mot de passe est requis.";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const resetForm = () => {
+        setForm({ name: "", email: "", password: "" });
+        setErrors({});
+        setShowPassword(false);
+    };
+    const handleSubmit = async () => {
+        if (!validate()) return;
+
+        try {
+            setLoading(true);
+            const res = await apiClient.post("/admin/AjouterExpert", form);
+
+            if (res.status === 400) {
+                toast.error(res?.data?.message);
+            } else {
+
+                toast.success("Expert ajouté avec succès !");
+                
+                onExpertAdded(); // Pour rafraîchir la liste
+                setTimeout(() => {
+                    handleClose();       
+                    resetForm();        
+                }, 1000);
+            }
+
+
+
+        } catch (err) {
+
+            toast.error("Erreur lors de l'ajout.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
+    };
+
+    return (
+        <Dialog open={open} handler={() => {
+            resetForm();
+            handleClose();
+        }}>
+            <ToastContainer position='top-center' />
+            <DialogHeader>Ajouter un expert</DialogHeader>
+            <DialogBody className="flex flex-col gap-4">
+                <div>
+                    <Input
+                        label="Nom"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        error={!!errors.name}
+                    />
+                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                </div>
+                <div>
+                    <Input
+                        label="Email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        error={!!errors.email}
+                    />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                </div>
+                <div className="relative">
+                    <Input
+                        label="Mot de passe"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        value={form.password}
+                        onChange={handleChange}
+                        error={!!errors.password}
+                    />
+                    <div
+                        className="absolute right-3 top-2/4 -translate-y-1/2 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? (
+                            <EyeSlashIcon className="h-5 w-5 text-gray-600" />
+                        ) : (
+                            <EyeIcon className="h-5 w-5 text-gray-600" />
+                        )}
+                    </div>
+                    {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+                </div>
+            </DialogBody>
+            <DialogFooter>
+                <Button variant="text" onClick={() => {
+                    resetForm();
+                    handleClose();
+                }} className="mr-2">
+                    Annuler
+                </Button>
+                <Button onClick={handleSubmit} disabled={loading}>
+                    {loading ? "Ajout..." : "Ajouter"}
+                </Button>
+
+            </DialogFooter>
+        </Dialog>
+    );
+}
