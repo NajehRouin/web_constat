@@ -6,24 +6,24 @@ import html2pdf from "html2pdf.js";
 const ConstatModal = ({ open, onClose, userId }) => {
     const [data, setData] = useState([]);
     const pdfRef = useRef();
-   
+
 
     useEffect(() => {
         if (userId) {
-            client.post("/addConstat/getConstatUser", { userId:userId?._id }).then((res) => {
+            client.post("/addConstat/getConstatUser", { userId: userId?._id }).then((res) => {
                 setData(res.data.result || []);
             }).catch((err) => {
                 console.error("Erreur lors de la récupération des constats :", err);
             });
         }
-    }, [userId,name]);
+    }, [userId, name]);
 
     const handleDownloadPdf = () => {
         const element = pdfRef.current;
-        
+
         // 1. Sélectionner toutes les images dans le composant
         const images = element.querySelectorAll("img");
-    
+
         // 2. Créer des promesses pour attendre le chargement des images
         const imageLoadPromises = Array.from(images).map((img) => {
             return new Promise((resolve) => {
@@ -34,7 +34,7 @@ const ConstatModal = ({ open, onClose, userId }) => {
                 }
             });
         });
-    
+
         // 3. Une fois toutes les images prêtes, générer le PDF
         Promise.all(imageLoadPromises).then(() => {
             html2pdf()
@@ -49,8 +49,8 @@ const ConstatModal = ({ open, onClose, userId }) => {
                 .save(); // Télécharger
         });
     };
-    
-      
+
+
 
     return (
         <Dialog open={open} handler={onClose} size="lg">
@@ -90,15 +90,19 @@ const ConstatModal = ({ open, onClose, userId }) => {
                         </div>
                     ))}
                 </div>
+                {
+                    data.length > 0 &&(
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                onClick={handleDownloadPdf}
+                                className="bg-blue-600 text-white px-4 py-2 rounded"
+                            >
+                                Télécharger en PDF
+                            </button>
+                        </div>
+                    )
+                }
 
-                <div className="mt-4 flex justify-end">
-                    <button
-                        onClick={handleDownloadPdf}
-                        className="bg-blue-600 text-white px-4 py-2 rounded"
-                    >
-                        Télécharger en PDF
-                    </button>
-                </div>
             </DialogBody>
         </Dialog>
 

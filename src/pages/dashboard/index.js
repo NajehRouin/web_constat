@@ -6,3 +6,4 @@ export * from "@/pages/dashboard/chat"
 export * from "@/pages/dashboard/users"
 export * from '@/pages/dashboard/expert'
 export * from '@/pages/dashboard/garge'
+export * from '@/pages/dashboard/fraud'

@@ -5,7 +5,7 @@ import {
   ChatBubbleLeftIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Chat, Users, Expert, Garge } from "@/pages/dashboard";
+import { Home, Profile, Chat, Users, Expert, Garge, Fraud } from "@/pages/dashboard";
 import AuthContext from "@/auth/context";
 
 const icon = {
@@ -28,17 +28,24 @@ export const useRoutes = () => {
       path: "/message",
       element: <Chat />,
     },
-    {
-      icon: <UserCircleIcon {...icon} />,
-      name: "profile",
-      path: "/profile",
-      element: <Profile />,
-    },
+    // {
+    //   icon: <UserCircleIcon {...icon} />,
+    //   name: "profile",
+    //   path: "/profile",
+    //   element: <Profile />,
+    // },
     {
       icon: <UserGroupIcon {...icon} />,
       name: "Users",
       path: "/users",
       element: <Users />,
+    },
+
+     {
+      icon: <UserGroupIcon {...icon} />,
+      name: "fraude",
+      path: "/fraud",
+      element: <Fraud />,
     },
     {
       icon: <UserGroupIcon {...icon} />,
