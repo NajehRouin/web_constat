@@ -16,6 +16,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-tailwind/react";
 import { MaterialTailwindControllerProvider } from "@/context";
 import "../public/css/tailwind.css";
+import "react-datepicker/dist/react-datepicker.css";
 import { AuthProvider } from "./auth/context";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
