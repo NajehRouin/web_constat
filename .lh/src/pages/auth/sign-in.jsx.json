@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1748447568818,
@@ -16,6 +16,10 @@
                 {
                     "date": 1748450557650,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,9 +55,9 @@\n          if(result.data.data?.admin?.role===\"Admin\"){\n          navigate(\"/dashboard/home\");\n       }\n       if(result.data.data?.admin?.role===\"gestionnaire\"){\n-         navigate(\"/dashboard/home\");\n+         navigate(\"/dashboard/assures\");\n       }\n \n        if(result.data.data?.admin?.role===\"expert\"){\n          navigate(\"/dashboard/assures\");\n"
+                },
+                {
+                    "date": 1749328694872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n       // Connexion réussie - même logique que mobile\n        await auth.logIn(result.data.data.token);\n \n          if(result.data.data?.admin?.role===\"Admin\"){\n-         navigate(\"/dashboard/home\");\n+         navigate(\"/dashboard/assures\");\n       }\n       if(result.data.data?.admin?.role===\"gestionnaire\"){\n          navigate(\"/dashboard/assures\");\n       }\n"
                 }
             ],
             "date": 1748447568818,

@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/components/SupprimerRole.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1749327037577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1749327093958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n     DialogFooter,\r\n     Button,\r\n } from \"@material-tailwind/react\";\r\n import { useState } from \"react\";\r\n-import client from \"../../api/client\";\r\n+import apiClient from \"@/api/client\";\r\n import { ToastContainer, toast } from 'react-toastify';\r\n import 'react-toastify/dist/ReactToastify.css';\r\n \r\n function SupprimerRole({ open, handleClose, gestionnaire, onGestionnaireDeleted }) {\r\n"
+                },
+                {
+                    "date": 1749327147386,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n \r\n     const handleDelete = async () => {\r\n         setIsDeleting(true);\r\n         try {\r\n-            await client.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n+            await apiClient.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n             toast.success(\"Gestionnaire supprimé avec succès.\", {\r\n                 position: \"top-right\",\r\n                 autoClose: 3000,\r\n             });\r\n"
+                },
+                {
+                    "date": 1749327587402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n \r\n     return (\r\n         <>\r\n             <ToastContainer position=\"top-center\" />\r\n-            <Dialog open={open} handler={handleClose}>\r\n+            <Dialog handler={handleClose}>\r\n                 <DialogHeader>Confirmer la suppression</DialogHeader>\r\n                 <DialogBody>\r\n                     Êtes-vous sûr de vouloir supprimer le gestionnaire {gestionnaire?.name} ???\r\n                 </DialogBody>\r\n"
+                },
+                {
+                    "date": 1749327602012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n \r\n     return (\r\n         <>\r\n             <ToastContainer position=\"top-center\" />\r\n-            <Dialog handler={handleClose}>\r\n+            <Dialog open={open} handler={handleClose}>\r\n                 <DialogHeader>Confirmer la suppression</DialogHeader>\r\n                 <DialogBody>\r\n                     Êtes-vous sûr de vouloir supprimer le gestionnaire {gestionnaire?.name} ???\r\n                 </DialogBody>\r\n"
+                },
+                {
+                    "date": 1749327705066,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,15 +15,18 @@\n \r\n     const handleDelete = async () => {\r\n         setIsDeleting(true);\r\n         try {\r\n-            await apiClient.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n-            toast.success(\"Gestionnaire supprimé avec succès.\", {\r\n+         let result=   await apiClient.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n+         if(result.status===200){\r\n+  toast.success(response?.data?.message, {\r\n                 position: \"top-right\",\r\n                 autoClose: 3000,\r\n             });\r\n             onGestionnaireDeleted();\r\n             handleClose();\r\n+         }\r\n+          \r\n         } catch (error) {\r\n             console.error(\"Error deleting gestionnaire:\", error);\r\n             toast.error(\"Erreur lors de la suppression du gestionnaire.\", {\r\n                 position: \"top-right\",\r\n"
+                },
+                {
+                    "date": 1749327747482,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         setIsDeleting(true);\r\n         try {\r\n          let result=   await apiClient.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n          if(result.status===200){\r\n-  toast.success(response?.data?.message, {\r\n+  toast.success(result?.data?.message, {\r\n                 position: \"top-right\",\r\n                 autoClose: 3000,\r\n             });\r\n             onGestionnaireDeleted();\r\n"
+                },
+                {
+                    "date": 1749327797442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,10 @@\n             handleClose();\r\n          }\r\n           \r\n         } catch (error) {\r\n-            console.error(\"Error deleting gestionnaire:\", error);\r\n-            toast.error(\"Erreur lors de la suppression du gestionnaire.\", {\r\n+            console.error(\"Error deleting :\", error);\r\n+            toast.error(\"Erreur lors de la suppressio.\", {\r\n                 position: \"top-right\",\r\n                 autoClose: 3000,\r\n             });\r\n         } finally {\r\n"
+                }
+            ],
+            "date": 1749327037577,
+            "name": "Commit-0",
+            "content": "import {\r\n    Dialog,\r\n    DialogHeader,\r\n    DialogBody,\r\n    DialogFooter,\r\n    Button,\r\n} from \"@material-tailwind/react\";\r\nimport { useState } from \"react\";\r\nimport client from \"../../api/client\";\r\nimport { ToastContainer, toast } from 'react-toastify';\r\nimport 'react-toastify/dist/ReactToastify.css';\r\n\r\nfunction SupprimerRole({ open, handleClose, gestionnaire, onGestionnaireDeleted }) {\r\n  const [isDeleting, setIsDeleting] = useState(false);\r\n\r\n    const handleDelete = async () => {\r\n        setIsDeleting(true);\r\n        try {\r\n            await client.post(\"/admin/deleteRole\", { id: gestionnaire?._id });\r\n            toast.success(\"Gestionnaire supprimé avec succès.\", {\r\n                position: \"top-right\",\r\n                autoClose: 3000,\r\n            });\r\n            onGestionnaireDeleted();\r\n            handleClose();\r\n        } catch (error) {\r\n            console.error(\"Error deleting gestionnaire:\", error);\r\n            toast.error(\"Erreur lors de la suppression du gestionnaire.\", {\r\n                position: \"top-right\",\r\n                autoClose: 3000,\r\n            });\r\n        } finally {\r\n            setIsDeleting(false);\r\n        }\r\n    };\r\n\r\n    return (\r\n        <>\r\n            <ToastContainer position=\"top-center\" />\r\n            <Dialog open={open} handler={handleClose}>\r\n                <DialogHeader>Confirmer la suppression</DialogHeader>\r\n                <DialogBody>\r\n                    Êtes-vous sûr de vouloir supprimer le gestionnaire {gestionnaire?.name} ???\r\n                </DialogBody>\r\n                <DialogFooter>\r\n                    <Button\r\n                        variant=\"text\"\r\n                        color=\"blue-gray\"\r\n                        onClick={handleClose}\r\n                        className=\"mr-1\"\r\n                        disabled={isDeleting}\r\n                    >\r\n                        Annuler\r\n                    </Button>\r\n                    <Button\r\n                        variant=\"gradient\"\r\n                        color=\"red\"\r\n                        onClick={handleDelete}\r\n                        disabled={isDeleting}\r\n                        loading={isDeleting}\r\n                    >\r\n                        Supprimer\r\n                    </Button>\r\n                </DialogFooter>\r\n            </Dialog>\r\n        </>\r\n    );\r\n}\r\n\r\nexport default SupprimerRole"
+        }
+    ]
+}

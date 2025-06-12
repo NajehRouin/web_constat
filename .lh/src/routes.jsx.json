@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1748384443354,
@@ -52,6 +52,18 @@
                 {
                     "date": 1748450532893,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,20 +67,21 @@\n   ];\n \n \n   const gestionnairePages = [\n-    {\n-      icon: <HomeIcon {...icon} />,\n-      name: \"dashboard\",\n-      path: \"/home\",\n-      element: <Home />,\n-    },\n+   \n       {\n       icon: <UserGroupIcon {...icon} />,\n        name: \"Assuré\",\n       path: \"/assures\",\n       element: <Users />,\n     },\n+       {\n+      icon: <TruckIcon {...icon} />,\n+      name: \"Accidents\",\n+      path: \"/accidents\",\n+      element: <Accidents />,\n+    },\n     {\n       icon: <ChatBubbleLeftIcon {...icon} />,\n       name: \"message\",\n       path: \"/message\",\n@@ -94,20 +95,10 @@\n       name: \"fraude\",\n       path: \"/fraud\",\n       element: <Fraud />,\n     },\n-    {\n-      icon: <UserGroupIcon {...icon} />,\n-      name: \"Experts\",\n-      path: \"/experts\",\n-      element: <Expert />,\n-    },\n-    {\n-      icon: <UserGroupIcon {...icon} />,\n-      name: \"Grages\",\n-      path: \"/grages\",\n-      element: <Garge />,\n-    },\n+ \n+  \n   ];\n \n \n   const expertPages = [\n"
+                },
+                {
+                    "date": 1749320278492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,14 +29,9 @@\n        name: \"Assuré\",\n       path: \"/assures\",\n       element: <Users />,\n     },\n-    {\n-      icon: <ChatBubbleLeftIcon {...icon} />,\n-      name: \"message\",\n-      path: \"/message\",\n-      element: <Chat />,\n-    },\n+ \n   \n   \n \n      {\n"
+                },
+                {
+                    "date": 1749328649458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,10 +30,15 @@\n       path: \"/assures\",\n       element: <Users />,\n     },\n  \n+   {\n+      icon: <TruckIcon {...icon} />,\n+      name: \"Accidents\",\n+      path: \"/accidents\",\n+      element: <Accidents />,\n+    },\n   \n-  \n \n      {\n       icon: <UserGroupIcon {...icon} />,\n       name: \"fraude\",\n"
+                },
+                {
+                    "date": 1749328672839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,14 +17,14 @@\n   const { admin } = useContext(AuthContext);\n \n \n  const AdminPages = [\n-    {\n-      icon: <HomeIcon {...icon} />,\n-      name: \"dashboard\",\n-      path: \"/home\",\n-      element: <Home />,\n-    },\n+    // {\n+    //   icon: <HomeIcon {...icon} />,\n+    //   name: \"dashboard\",\n+    //   path: \"/home\",\n+    //   element: <Home />,\n+    // },\n       {\n       icon: <UserGroupIcon {...icon} />,\n        name: \"Assuré\",\n       path: \"/assures\",\n"
                 }
             ],
             "date": 1748384443354,
